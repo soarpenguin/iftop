@@ -387,7 +387,7 @@ for flag in "" -mt -pthread -thread ; do
     CFLAGS="$oldCFLAGS $flag"
     for lib in "" -lpthread "-lpthread -lposix4" ; do
         LIBS="$oldLIBS $lib"
-        AC_LINK_IFELSE(AC_LANG_SOURCE([`cat config/pthread.c`]), [
+        AC_LINK_IFELSE(AC_LANG_SOURCE([`cat $srcdir/config/pthread.c`]), [
             foundthrlib=$lib
             foundthrflag=$flag
             thrfail=0
@@ -407,7 +407,7 @@ fi
 
 AC_MSG_RESULT([CFLAGS=$foundthrflag and LIBS=$foundthrlib])
 AC_MSG_CHECKING([POSIX threads usability])
-AC_RUN_IFELSE([`cat config/pthread.c`],
+AC_RUN_IFELSE([`cat $srcdir/config/pthread.c`],
 	      [AC_MSG_RESULT([yes])],
               [AC_MSG_ERROR(
 	       [it fails.  We probably guessed the wrong CFLAGS.])],
