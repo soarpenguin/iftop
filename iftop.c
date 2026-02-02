@@ -70,7 +70,7 @@ int history_len = 1;
 pthread_mutex_t tick_mutex;
 
 pcap_t* pd; /* pcap descriptor */
-struct bpf_program pcap_filter;
+struct bpf_program iftop_pcap_filter;
 pcap_handler packet_handler;
 
 sig_atomic_t foad;
@@ -631,12 +631,12 @@ char *set_filter_code(const char *filter) {
         sprintf(x, "(%s) and (ip or ip6)", filter);
     } else
         x = xstrdup("ip or ip6");
-    if (pcap_compile(pd, &pcap_filter, x, 1, 0) == -1) {
+    if (pcap_compile(pd, &iftop_pcap_filter, x, 1, 0) == -1) {
         xfree(x);
         return pcap_geterr(pd);
     }
     xfree(x);
-    if (pcap_setfilter(pd, &pcap_filter) == -1)
+    if (pcap_setfilter(pd, &iftop_pcap_filter) == -1)
         return pcap_geterr(pd);
     else
         return NULL;
