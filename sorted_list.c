@@ -16,7 +16,7 @@ void sorted_list_insert(sorted_list_type* list, void* item) {
 
     while(p->next != NULL && list->compare(item, p->next->data) > 0) {
         p = p->next;
-    } 
+    }
 
     node = xmalloc(sizeof *node);
 
@@ -51,6 +51,3 @@ void sorted_list_destroy(sorted_list_type* list) {
 void sorted_list_initialise(sorted_list_type* list) {
     list->root.next = NULL;
 }
-
-
-

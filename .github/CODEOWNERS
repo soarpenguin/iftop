@@ -1,0 +1,8 @@
+# CODEOWNERS — Riftop critical path ownership
+
+/src/flow/       @jperez1250
+/src/capture/    @jperez1250
+/src/protocols/  @jperez1250
+/src/engine.rs   @jperez1250
+/tests/          @jperez1250
+/.github/        @jperez1250

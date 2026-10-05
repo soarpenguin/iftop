@@ -1,0 +1,42 @@
+[package]
+name = "riftop"
+version = "0.1.0"
+edition = "2021"
+description = "Modern iftop-style real-time bandwidth monitor written in Rust"
+license = "GPL-2.0-or-later"
+readme = "README.md"
+repository = "https://github.com/jperez1250/Riftop"
+keywords = ["network", "bandwidth", "monitor", "tui", "iftop"]
+categories = ["command-line-utilities", "network-programming"]
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.6", features = ["derive"] }
+crossterm = "0.29"
+dns-lookup = "4.0"
+etherparse = "0.21"
+pcap = "2.5"
+ratatui = "0.30"
+serde = { version = "1.0", features = ["derive"] }
+thiserror = "2.0"
+parking_lot = "0.12"
+toml = "0.8"
+
+[lints.rust]
+unsafe_code = "forbid"
+unused_must_use = "deny"
+rust_2018_idioms = { level = "warn", priority = -1 }
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+unwrap_used = "warn"
+expect_used = "warn"
+todo = "warn"
+unimplemented = "warn"
+undocumented_unsafe_blocks = "deny"
+mem_forget = "warn"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

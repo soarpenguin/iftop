@@ -22,7 +22,7 @@ static const char rcsid[] = "$Id: stringmap.c,v 1.4 2010/11/27 11:06:12 pdw Exp 
  * Allocate memory for a new stringmap. */
 stringmap stringmap_new() {
     stringmap S;
-    
+
     S = xcalloc(sizeof *S, 1);
 
     return S;
@@ -54,7 +54,7 @@ void stringmap_delete_free(stringmap S) {
 
 /* stringmap_insert:
  * Insert into S an item having key k and value d. Returns a pointer to
- * the existing item value, or NULL if a new item was created. 
+ * the existing item value, or NULL if a new item was created.
  */
 item *stringmap_insert(stringmap S, const char *k, const item d) {
     if (!S) return NULL;

@@ -1,0 +1,22 @@
+# Riftop configuration example
+# Copy to ./riftop.toml or ~/.config/riftop/config.toml
+
+# interface = "eth0"
+# filter = "tcp or udp"
+# net_filter = "10.0.0.0/8"
+# net_filter6 = "2001:db8::/32"
+# screen_filter = ""
+
+no_dns = false
+ports = false
+link_local = false
+promiscuous = false
+
+interval_ms = 1000
+lines = 20
+aggregate = "pair"
+output = "tui"
+
+# Alert when a flow exceeds ~1 Gbps (bytes/sec)
+# alert_rate_bps = 125000000
+# alert_pps = 100000

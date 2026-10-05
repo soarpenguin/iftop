@@ -51,7 +51,7 @@
 " > - sort by dest name\n"\
 " o - freeze current order\n"\
 "\n"\
-"iftop, version " IFTOP_VERSION 
+"iftop, version " IFTOP_VERSION
 
 
 /* 2, 10 and 40 seconds */
@@ -92,7 +92,7 @@ char helpmsg[HELP_MSG_SIZE];
 int dontshowdisplay = 0;
 
 /*
- * Compare two screen lines based on bandwidth.  Start comparing from the 
+ * Compare two screen lines based on bandwidth.  Start comparing from the
  * specified column
  */
 int screen_line_bandwidth_compare(host_pair_line* aa, host_pair_line* bb, int start_div) {
@@ -133,7 +133,7 @@ int screen_line_host_compare(void* a, void* b, host_pair_line* aa, host_pair_lin
     char hosta[HOSTNAME_LENGTH], hostb[HOSTNAME_LENGTH];
     int r;
 
-    /* This isn't overly efficient because we resolve again before 
+    /* This isn't overly efficient because we resolve again before
        display. */
     if (options.dnsresolution) {
         resolve(aa->ap.af, a, hosta, HOSTNAME_LENGTH);
@@ -184,23 +184,23 @@ void readable_size(float n, char* buf, int bsize, int ksize, int bytes) {
     float size = 1;
 
     /* Convert to bits? */
-    if(bytes == 0) { 
+    if(bytes == 0) {
       n *= 8;
     }
 
     while(1) {
       if(n < size * 1000 || i >= UNIT_DIVISIONS - 1) {
-        snprintf(buf, bsize, " %4.0f%s", n / size, bytes ? unit_bytes[i] : unit_bits[i]); 
+        snprintf(buf, bsize, " %4.0f%s", n / size, bytes ? unit_bytes[i] : unit_bits[i]);
         break;
       }
       i++;
       size *= ksize;
       if(n < size * 10) {
-        snprintf(buf, bsize, " %4.2f%s", n / size, bytes ? unit_bytes[i] : unit_bits[i]); 
+        snprintf(buf, bsize, " %4.2f%s", n / size, bytes ? unit_bytes[i] : unit_bits[i]);
         break;
       }
       else if(n < size * 100) {
-        snprintf(buf, bsize, " %4.1f%s", n / size, bytes ? unit_bytes[i] : unit_bits[i]); 
+        snprintf(buf, bsize, " %4.1f%s", n / size, bytes ? unit_bytes[i] : unit_bits[i]);
         break;
       }
   }
@@ -215,7 +215,7 @@ static struct {
         {     128000,     10 },
         {     256000,     10 },
         {    1000000,     10 },     /* 1 Mbit/s */
-        {   10000000,     10 },     
+        {   10000000,     10 },
         {  100000000,    100 },
         { 1000000000,    100 }      /* 1 Gbit/s */
     };
@@ -362,7 +362,7 @@ void draw_line_totals(int y, host_pair_line* line, option_linedisplay_t linedisp
         draw_line_total(line->sent[j], line->recv[j], y, x, linedisplay, options.bandwidth_in_bytes);
         x += 8;
     }
-    
+
     if(options.showbars) {
       switch(linedisplay) {
         case OPTION_LINEDISPLAY_TWO_LINE:
@@ -438,7 +438,7 @@ void calculate_totals() {
             peaksent = history_totals.sent[i];
         }
         if(history_totals.recv[i] + history_totals.sent[i] > peaktotal) {
-            peaktotal = history_totals.recv[i] + history_totals.sent[i];	
+            peaktotal = history_totals.recv[i] + history_totals.sent[i];
         }
     }
     for(i = 0; i < HISTORY_DIVISIONS; i++) {
@@ -462,8 +462,8 @@ void make_screen_list() {
          */
         if(!options.freezeorder) {
             sorted_list_insert(&screen_list, line);
-        } 
-	 
+        }
+
     }
 }
 
@@ -532,13 +532,13 @@ void analyse_data() {
             ap.protocol = 0;
         }
 
-	
+
         if(hash_find(screen_hash, &ap, u_screen_line.void_pp) == HASH_STATUS_KEY_NOT_FOUND) {
             screen_line = xcalloc(1, sizeof *screen_line);
             hash_insert(screen_hash, &ap, screen_line);
             screen_line->ap = ap;
         }
-        
+
 	screen_line->total_sent += d->total_sent;
 	screen_line->total_recv += d->total_recv;
 
@@ -558,7 +558,7 @@ void analyse_data() {
 
     make_screen_list();
 
-    
+
     calculate_totals();
 
 }
@@ -628,8 +628,8 @@ void ui_print() {
         line = calloc(COLS + 1, 1);
     }
 
-    /* 
-     * erase() is faster than clear().  Dunno why we switched to 
+    /*
+     * erase() is faster than clear().  Dunno why we switched to
      * clear() -pdw 24/10/02
      */
     erase();
@@ -660,7 +660,7 @@ void ui_print() {
             if(y < LINES - 5) {
                 L = (COLS - 8 * HISTORY_DIVISIONS - 4) / 2;
                 if(options.show_totals) {
-                    L -= 4;    
+                    L -= 4;
                 }
                 if(L > HOSTNAME_LENGTH) {
                     L = HOSTNAME_LENGTH;
@@ -702,7 +702,7 @@ void ui_print() {
 
 
                 mvaddstr(y, x, host2);
-                
+
                 if(options.show_totals) {
                     draw_line_total(screen_line->total_sent, screen_line->total_recv, y, COLS - 8 * (HISTORY_DIVISIONS + 1), options.linedisplay, 1);
                 }
@@ -722,7 +722,7 @@ void ui_print() {
 
 
     y = LINES - 3;
-    
+
     mvhline(y-1, 0, 0, COLS);
 
     mvaddstr(y, 0, "TX: ");
@@ -765,7 +765,7 @@ void ui_print() {
       mvchgat(0, 0, strlen(helpmsg) + 2, A_REVERSE, 0, NULL);
     }
     move(LINES - 1, COLS - 1);
-    
+
     refresh();
 
     /* Bar chart auto scale */
@@ -805,7 +805,7 @@ void showhelp(const char * s) {
 void ui_init() {
     char msg[20];
     ui_curses_init();
-    
+
     erase();
 
     screen_list_init();
@@ -900,7 +900,7 @@ void ui_loop() {
                 if(options.bar_interval == 0) {
                     showhelp("Bars show 2s average");
                 }
-                else if(options.bar_interval == 1) { 
+                else if(options.bar_interval == 1) {
                     showhelp("Bars show 10s average");
                 }
                 else {
@@ -961,7 +961,7 @@ void ui_loop() {
                 showportstatus();
                 break;
             case 'p':
-                options.showports = 
+                options.showports =
                   (options.showports == OPTION_PORTS_OFF)
                   ? OPTION_PORTS_ON
                   : OPTION_PORTS_OFF;

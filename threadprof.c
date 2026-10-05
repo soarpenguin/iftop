@@ -1,4 +1,4 @@
-/* 
+/*
  * pthread_create wrapper for gprof compatibility
  *
  */

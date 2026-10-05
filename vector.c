@@ -20,7 +20,7 @@ static const char rcsid[] = "$Id: vector.c,v 1.3 2003/11/07 02:16:41 pdw Exp $";
 
 vector vector_new(void) {
     vector v;
-    
+
     v = xcalloc(1, sizeof *v);
     if (!v) return NULL;
 
